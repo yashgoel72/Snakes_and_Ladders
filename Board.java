@@ -16,6 +16,11 @@ public class Board {
 				gameBoard[row][col] = row*10 + col + 1;
 			}
 		}
+//snakes[i][0] gives the position where snake bites and 
+//snakes[i][1] gives the final position
+
+
+
 		snakes = new int[8][2];
 		snakes[0][0] = 17;
 		snakes[0][1] = 7;
@@ -34,6 +39,9 @@ public class Board {
 		snakes[7][0] = 99;
 		snakes[7][1] = 78;
 
+
+//ladders[i][0] gives the position where we encounter ladder and 
+//ladders[i][1] gives the final position
 
 		ladders = new int[8][2];
 
@@ -57,9 +65,13 @@ public class Board {
 
 
 	}
+
+
+
+    // Main method
     public static void main(String[] args){
         //Print welcome message.
-        System.out.println("#### Welcome to Snakes & Ladders Game ####");
+        System.out.println("Welcome to Snakes & Ladders Game");
         System.out.println("Created by Yash Goel");
     
         //Initialize scanner.
@@ -70,7 +82,7 @@ public class Board {
        System.out.print("Please enter the number of player : " );
         numPlayers = sc.nextInt();
         
-        //Initialize the players.
+        //Initialize the players creating an ArrayList of type Player(Object of Class Player).
         List<Player> players = new ArrayList<Player>();
         for (int i = 1; i <= numPlayers; i++)
         {
@@ -87,9 +99,9 @@ public class Board {
         int index = 0;
         while (!done)
         {
-            //Player takes turn
-            Player currPlayer = players.get(index);
             
+            Player currPlayer = players.get(index);
+            //Current Player takes turn
             int roll = currPlayer.rollDice();
             System.out.println(currPlayer.getName() + " Rolled a dice and got "+ roll);
             
@@ -134,12 +146,11 @@ public class Board {
 
 
 		if (position >= 100){
-			//If the new position is 100 (or above), the player wins!
 			position=100;
+            //Updating players position
             p.setPosition(position);
             return p;
 		} else {
-			//If the new position is less than 100
 
 			//Check if the new position is the starting point for a snake
 			for (int i = 0; i < 8; i++){
@@ -148,7 +159,7 @@ public class Board {
 					//Move the player to the end position for the snake
 					position = snakes[i][1];
 					
-					System.out.println("Uh oh. " + p.getName() + " takes snake from " + snakes[i][0] + " to " + snakes[i][1]+"\n");
+					System.out.println("Oops " + p.getName() + " takes snake from " + snakes[i][0] + " to " + snakes[i][1]+"\n");
 
 					
 				}
@@ -166,7 +177,8 @@ public class Board {
 					
 				}
 			}
-		
+
+		// Updating players position
 			p.setPosition(position);
 			return p;
 		}
